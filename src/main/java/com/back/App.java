@@ -29,19 +29,28 @@ public class App {
         }
     }
 
-
     public void actionList() {
         System.out.println("번호 / 작가 / 명언");
         System.out.println("----------------------");
-        for(int i = lastIndex - 1; i >= 0; i--) {
-            WiseSaying target = wiseSayings[i];
 
-            if(target == null) {
-                break;
-            }
+        WiseSaying[] wiseSayings = findListDesc();
 
-            System.out.println("%d / %s / %s".formatted(target.id, target.saying, target.author));
+        for(WiseSaying wiseSaying : wiseSayings) {
+            System.out.println("%d / %s / %s".formatted(wiseSaying.id, wiseSaying.saying, wiseSaying.author));
         }
+    }
+
+    public WiseSaying[] findListDesc() {
+
+        WiseSaying[] resultList = new WiseSaying[lastIndex];
+        int resultListIndex = 0;
+
+        for(int i = lastIndex - 1; i >= 0; i--) {
+            resultList[resultListIndex] = wiseSayings[i];
+            resultListIndex++;
+        }
+
+        return resultList;
     }
 
     public void actionWrite() {

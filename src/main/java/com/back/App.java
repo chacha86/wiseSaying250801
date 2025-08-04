@@ -13,20 +13,43 @@ public class App {
 
         System.out.println("== 명언 앱 ==");
 
-        while(true) {
+        while (true) {
             System.out.print("명령) ");
             String command = sc.nextLine();
 
-            if(command.equals("등록")) {
-               actionWrite();
+            if (command.equals("등록")) {
+                actionWrite();
 
-            } else if(command.equals("목록")) {
+            } else if (command.equals("목록")) {
                 actionList();
 
-            } else if(command.equals("종료")) {
+            } else if (command.equals("삭제?id=1")) {
+                actionDelete();
+            } else if (command.equals("종료")) {
                 break;
             }
         }
+    }
+
+    public void actionDelete() {
+        delete();
+        System.out.println("1번 명언이 삭제되었습니다.");
+    }
+
+    public void delete() {
+        int deleteTargetIndex = -1; // 삭제하고 싶은 명언이 저장된 위치
+
+        for(int i = 0; i < lastIndex; i++) {
+            if(wiseSayings[i].id == 1) {
+                deleteTargetIndex = i;
+            }
+        }
+
+        for(int i = deleteTargetIndex; i < lastIndex; i++) {
+            wiseSayings[i] = wiseSayings[i + 1];
+        }
+
+        lastIndex--;
     }
 
     public void actionList() {
@@ -35,7 +58,7 @@ public class App {
 
         WiseSaying[] wiseSayings = findListDesc();
 
-        for(WiseSaying wiseSaying : wiseSayings) {
+        for (WiseSaying wiseSaying : wiseSayings) {
             System.out.println("%d / %s / %s".formatted(wiseSaying.id, wiseSaying.saying, wiseSaying.author));
         }
     }
@@ -45,7 +68,7 @@ public class App {
         WiseSaying[] resultList = new WiseSaying[lastIndex];
         int resultListIndex = 0;
 
-        for(int i = lastIndex - 1; i >= 0; i--) {
+        for (int i = lastIndex - 1; i >= 0; i--) {
             resultList[resultListIndex] = wiseSayings[i];
             resultListIndex++;
         }

@@ -4,10 +4,10 @@ import java.util.Scanner;
 
 public class App {
 
-    Scanner sc = new Scanner(System.in);
-    int lastNo = 0;
-    WiseSaying[] wiseSayings = new WiseSaying[100];
-    int lastIndex = 0;
+    private Scanner sc = new Scanner(System.in);
+    private int lastNo = 0;
+    private WiseSaying[] wiseSayings = new WiseSaying[100];
+    private int lastIndex = 0;
 
     public void run() {
 
@@ -35,7 +35,7 @@ public class App {
         }
     }
 
-    public void actionModify(String command) {
+    private void actionModify(String command) {
 
         String[] commandBits = command.split("=");
 
@@ -66,12 +66,12 @@ public class App {
         modify(modifyTargetWiseSaying, newSaying, newAuthor);
     }
 
-    public void modify(WiseSaying modifyTargetWiseSaying, String newSaying, String newAuthor) {
+    private void modify(WiseSaying modifyTargetWiseSaying, String newSaying, String newAuthor) {
         modifyTargetWiseSaying.setSaying(newSaying);
         modifyTargetWiseSaying.setAuthor(newAuthor);
     }
 
-    public void actionDelete(String command) {
+    private void actionDelete(String command) {
 
         String[] commandBits = command.split("=");
 
@@ -92,7 +92,7 @@ public class App {
         }
     }
 
-    public int findIndexById(int id) {
+    private int findIndexById(int id) {
         for (int i = 0; i < lastIndex; i++) {
             if (wiseSayings[i].getId() == id) {
                 return i;
@@ -102,7 +102,7 @@ public class App {
         return -1;
     }
 
-    public boolean delete(int id) {
+    private boolean delete(int id) {
 
         int deleteTargetIndex = findIndexById(id);
 
@@ -119,7 +119,7 @@ public class App {
         return true;
     }
 
-    public void actionList() {
+    private void actionList() {
         System.out.println("번호 / 작가 / 명언");
         System.out.println("----------------------");
 
@@ -130,7 +130,7 @@ public class App {
         }
     }
 
-    public WiseSaying[] findListDesc() {
+    private WiseSaying[] findListDesc() {
 
         WiseSaying[] resultList = new WiseSaying[lastIndex];
         int resultListIndex = 0;
@@ -143,7 +143,7 @@ public class App {
         return resultList;
     }
 
-    public void actionWrite() {
+    private void actionWrite() {
         System.out.print("명언 : ");
         String saying = sc.nextLine();
         System.out.print("작가 : ");
@@ -154,7 +154,7 @@ public class App {
         System.out.println("%d번 명언이 등록되었습니다.".formatted(wiseSaying.getId()));
     }
 
-    public WiseSaying write(String saying, String author) {
+    private WiseSaying write(String saying, String author) {
 
         lastNo++;
         WiseSaying wiseSaying = new WiseSaying(lastNo, saying, author);

@@ -3,7 +3,6 @@ package com.back;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
-import java.util.stream.IntStream;
 
 public class App {
 
@@ -49,28 +48,26 @@ public class App {
         String idStr = commandBits[1];
         int id = Integer.parseInt(idStr);
 
-        int modifyTargetIndex = findIndexById(id);
+        WiseSaying wiseSaying = findByIdOrNull(id);
 
-        if(modifyTargetIndex == -1) {
+        if(wiseSaying == null) {
             System.out.println("%d번 명언은 존재하지 않습니다.".formatted(id));
             return;
         }
 
-        WiseSaying modifyTargetWiseSaying = wiseSayings.get(modifyTargetIndex);
-
-        System.out.println("명언(기존) : %s".formatted(modifyTargetWiseSaying.getSaying()));
+        System.out.println("명언(기존) : %s".formatted(wiseSaying.getSaying()));
         System.out.print("명언 : ");
         String newSaying = sc.nextLine();
-        System.out.println("작가(기존) : %s".formatted(modifyTargetWiseSaying.getAuthor()));
+        System.out.println("작가(기존) : %s".formatted(wiseSaying.getAuthor()));
         System.out.print("작가 : ");
         String newAuthor = sc.nextLine();
 
-        modify(modifyTargetWiseSaying, newSaying, newAuthor);
+        modify(wiseSaying, newSaying, newAuthor);
     }
 
-    private void modify(WiseSaying modifyTargetWiseSaying, String newSaying, String newAuthor) {
-        modifyTargetWiseSaying.setSaying(newSaying);
-        modifyTargetWiseSaying.setAuthor(newAuthor);
+    private void modify(WiseSaying wiseSaying, String newSaying, String newAuthor) {
+        wiseSaying.setSaying(newSaying);
+        wiseSaying.setAuthor(newAuthor);
     }
 
     private void actionDelete(String command) {
@@ -94,16 +91,22 @@ public class App {
         }
     }
 
-    private int findIndexById(int id) {
-        return IntStream.range(0, wiseSayings.size())
-                .filter(i -> wiseSayings.get(i).getId() == id)
+    private WiseSaying findByIdOrNull(int id) {
+        return wiseSayings.stream()
+                .filter(w -> w.getId() == id)
                 .findFirst()
-                .orElse(-1);
+                .orElse(null);
     }
 
+
+//    private int findIndexById(int id) {
+//        return IntStream.range(0, wiseSayings.size())
+//                .filter(i -> wiseSayings.get(i).getId() == id)
+//                .findFirst()
+//                .orElse(-1);
+//    }
+
     private boolean delete(int id) {
-        // 참고. for문으로 break로 찾아서 삭제하는 방법이 성능은 더 좋음.
-        // removeIf는 가독성이 좋음.
         return wiseSayings.removeIf(w -> w.getId() == id);
     }
 

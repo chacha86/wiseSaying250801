@@ -36,7 +36,6 @@ public class App {
         }
     }
 
-
     private void actionModify(Rq rq) {
 
         int id = rq.getParamAsInt("id", -1);

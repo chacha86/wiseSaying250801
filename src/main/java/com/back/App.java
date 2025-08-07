@@ -102,16 +102,9 @@ public class App {
     }
 
     private boolean delete(int id) {
-
-        int deleteTargetIndex = findIndexById(id);
-
-        if (deleteTargetIndex == -1) {
-            return false;
-        }
-
-        wiseSayings.remove(deleteTargetIndex);
-
-        return true;
+        // 참고. for문으로 break로 찾아서 삭제하는 방법이 성능은 더 좋음.
+        // removeIf는 가독성이 좋음.
+        return wiseSayings.removeIf(w -> w.getId() == id);
     }
 
     private void actionList() {

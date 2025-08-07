@@ -56,10 +56,10 @@ public class App {
 
         WiseSaying modifyTargetWiseSaying = wiseSayings[modifyTargetIndex];
 
-        System.out.println("명언(기존) : %s".formatted(modifyTargetWiseSaying.saying));
+        System.out.println("명언(기존) : %s".formatted(modifyTargetWiseSaying.getSaying()));
         System.out.print("명언 : ");
         String newSaying = sc.nextLine();
-        System.out.println("작가(기존) : %s".formatted(modifyTargetWiseSaying.author));
+        System.out.println("작가(기존) : %s".formatted(modifyTargetWiseSaying.getAuthor()));
         System.out.print("작가 : ");
         String newAuthor = sc.nextLine();
 
@@ -67,8 +67,8 @@ public class App {
     }
 
     public void modify(WiseSaying modifyTargetWiseSaying, String newSaying, String newAuthor) {
-        modifyTargetWiseSaying.saying = newSaying;
-        modifyTargetWiseSaying.author = newAuthor;
+        modifyTargetWiseSaying.setSaying(newSaying);
+        modifyTargetWiseSaying.setAuthor(newAuthor);
     }
 
     public void actionDelete(String command) {
@@ -94,7 +94,7 @@ public class App {
 
     public int findIndexById(int id) {
         for (int i = 0; i < lastIndex; i++) {
-            if (wiseSayings[i].id == id) {
+            if (wiseSayings[i].getId() == id) {
                 return i;
             }
         }
@@ -126,7 +126,7 @@ public class App {
         WiseSaying[] wiseSayings = findListDesc();
 
         for (WiseSaying wiseSaying : wiseSayings) {
-            System.out.println("%d / %s / %s".formatted(wiseSaying.id, wiseSaying.saying, wiseSaying.author));
+            System.out.println("%d / %s / %s".formatted(wiseSaying.getId(), wiseSaying.getSaying(), wiseSaying.getAuthor()));
         }
     }
 
@@ -151,17 +151,13 @@ public class App {
 
         WiseSaying wiseSaying = write(saying, author);
 
-        System.out.println("%d번 명언이 등록되었습니다.".formatted(wiseSaying.id));
+        System.out.println("%d번 명언이 등록되었습니다.".formatted(wiseSaying.getId()));
     }
 
     public WiseSaying write(String saying, String author) {
 
         lastNo++;
-        WiseSaying wiseSaying = new WiseSaying();
-        wiseSaying.id = lastNo;
-        wiseSaying.saying = saying;
-        wiseSaying.author = author;
-
+        WiseSaying wiseSaying = new WiseSaying(lastNo, saying, author);
         wiseSayings[lastIndex++] = wiseSaying;
 
         return wiseSaying;

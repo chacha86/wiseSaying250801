@@ -21,7 +21,7 @@ public class WiseSayingController {
         int id = rq.getParamAsInt("id", -1);
         WiseSaying wiseSaying = wiseSayingService.getByIdOrNull(id);
 
-        if(wiseSaying == null) {
+        if (wiseSaying == null) {
             System.out.println("%d번 명언은 존재하지 않습니다.".formatted(id));
             return;
         }
@@ -56,7 +56,8 @@ public class WiseSayingController {
         List<WiseSaying> wiseSayings = wiseSayingService.findListDesc();
 
         for (WiseSaying wiseSaying : wiseSayings) {
-            System.out.println("%d / %s / %s".formatted(wiseSaying.getId(), wiseSaying.getSaying(), wiseSaying.getAuthor()));
+            System.out.println("%d / %s / %s / %s / %s".formatted(wiseSaying.getId(),
+                    wiseSaying.getSaying(), wiseSaying.getAuthor(), wiseSaying.getCreatedDate(), wiseSaying.getModifiedDate()));
         }
     }
 

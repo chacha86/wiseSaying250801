@@ -26,6 +26,8 @@ public class WiseSayingRepository {
         if(wiseSaying.isNew()) { // wiseSaying이 새로운 객체인 경우
             lastId++;
             wiseSaying.setId(lastId);
+
+
             wiseSaying.setCreatedDate(java.time.LocalDateTime.now());
             wiseSaying.setModifiedDate(java.time.LocalDateTime.now());
             wiseSayings.add(wiseSaying);
